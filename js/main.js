@@ -14,6 +14,4 @@ function play() {
 }
 
 barrier.draw();
-
 play();
-gameOver(barrier);

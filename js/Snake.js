@@ -13,7 +13,7 @@ class Snake {
     this._y = y;
     this._size = size;
     this._color = color;
-    this._speed = 5;
+    this._speed = 0;
     this._canvas = document.getElementById("screen-game");
     this._ctxgov = document.getElementById("game-over");
     this._ctx = this._canvas.getContext("2d");
