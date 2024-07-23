@@ -1,7 +1,7 @@
-const snake = new Snake(30, 30, 20, "red");
+const snake = new Snake(0, 0, 20, "red");
 const food = new Food(100, 100, 10, "green");
 const score = new Score();
-const barrier = new Barrier(250, 0, 100, "black", 10);
+const barrier = new Barrier(250, 0, 100, "black", 0);
 
 function play() {
   snake.move();
@@ -9,9 +9,11 @@ function play() {
   snake.eat(food, score);
   score.draw();
   barrier.move();
+  snake.gameOver(barrier, score);
   requestAnimationFrame(play);
 }
 
 barrier.draw();
 
 play();
+gameOver(barrier);

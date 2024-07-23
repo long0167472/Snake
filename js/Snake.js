@@ -5,6 +5,7 @@ class Snake {
   _color;
   _speed;
   _ctx;
+  _ctxgov;
   _flag;
 
   constructor(x, y, size, color) {
@@ -14,6 +15,7 @@ class Snake {
     this._color = color;
     this._speed = 5;
     this._canvas = document.getElementById("screen-game");
+    this._ctxgov = document.getElementById("game-over");
     this._ctx = this._canvas.getContext("2d");
     this._flag = "right";
   }
@@ -129,48 +131,31 @@ class Snake {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
 
+  gameOver(barrier, score) {
+    if (
+      this._x + this._size >= barrier._x &&
+      this._x <= barrier._x + 10 &&
+      this._y >= barrier._y &&
+      this._y <= barrier._y + barrier._size
+    ) {
+      this._speed = 0;
+      barrier._speed = 0;
+      const gameOverScreen = document.getElementById("game-over-screen");
+      gameOverScreen.style.display = "block";
+      const finalScore = document.getElementById("final-score");
+      finalScore.textContent = `Your score: ${score._score}`;
+    }
+  }
+
   eat(food, score) {
-    switch (this._flag) {
-      case "right":
-        // xu ly va cham ben trai moi
-        if (
-          this._x + this._size >= food._x - food._radius &&
-          this._y <= food._y &&
-          food._y <= this._y + this._size
-        ) {
-          food.randomPosition();
-          score.increment();
-        }
-        break;
-      case "left":
-        if (
-          this._x <= food._x + food._radius &&
-          this._y <= food._y &&
-          food._y <= this._y + this._size
-        ) {
-          food.randomPosition();
-          score.increment();
-        }
-        break;
-      case "up":
-        if (
-          this._y <= food._y + food._radius &&
-          this._x <= food._x &&
-          food._x <= this._x + this._size
-        ) {
-          food.randomPosition();
-          score.increment();
-        }
-        break;
-      default:
-        if (
-          this._y + this._size >= food._y - food._radius &&
-          this._x <= food._x &&
-          food._x <= this._x + this._size
-        ) {
-          food.randomPosition();
-          score.increment();
-        }
+    if (
+      this._x <= food._x + food._radius &&
+      this._x + this._size >= food._x - food._radius &&
+      this._y <= food._y &&
+      food._y <= this._y + this._size
+    ) {
+      food.randomPosition();
+      score.increment();
     }
   }
 }
