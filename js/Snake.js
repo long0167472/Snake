@@ -5,7 +5,6 @@ class Snake {
   _color;
   _speed;
   _ctx;
-  _ctxgov;
   _flag;
 
   constructor(x, y, size, color) {
@@ -15,7 +14,6 @@ class Snake {
     this._color = color;
     this._speed = 0;
     this._canvas = document.getElementById("screen-game");
-    this._ctxgov = document.getElementById("game-over");
     this._ctx = this._canvas.getContext("2d");
     this._flag = "right";
   }
